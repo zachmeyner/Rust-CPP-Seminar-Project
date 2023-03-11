@@ -11,9 +11,11 @@ fn sieve(prime: &mut Vec<usize>, limit: usize) {
 
     for i in (3..f64::sqrt(limit as f64) as usize + 1).step_by(2) {
         if mark[i] {
-            for j in (i * i..limit).step_by(2 * i) {
-                mark[j] = false
-            }
+            /*(i * i..limit).step_by(2 * i)*/
+            mark.iter_mut()
+                .skip(i * i)
+                .step_by(2 * i)
+                .for_each(|j| *j = false)
         }
     }
 
@@ -28,6 +30,7 @@ fn sieve(prime: &mut Vec<usize>, limit: usize) {
 fn extended_sieve(limit: usize) {
     let size: usize = f64::sqrt(limit as f64) as usize + 1;
     let mut prime: Vec<usize> = vec![];
+    // prime.reserve(size);
     sieve(&mut prime, size);
     // println!("{:?}", prime);
 
