@@ -1,5 +1,5 @@
 fn main() {
-    extended_sieve(u32::MAX as usize);
+    extended_sieve(100000000);
     // extended_sieve(100);
     println!();
 }
@@ -22,7 +22,7 @@ fn sieve(prime: &mut Vec<usize>, limit: usize) {
     for (idx, val) in mark.into_iter().enumerate().skip(2) {
         if val {
             prime.push(idx);
-            // print!("{} ", idx)
+            print!("{} ", idx)
         }
     }
 }
@@ -57,7 +57,7 @@ fn extended_sieve(limit: usize) {
         }
         for i in low..high {
             if visited[i - low] {
-                // print!("{} ", i);
+                print!("{} ", i);
             }
         }
         low += size;
