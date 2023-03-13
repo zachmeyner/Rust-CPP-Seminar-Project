@@ -2,31 +2,37 @@ use bigdecimal::BigDecimal;
 use bigdecimal::FromPrimitive;
 
 fn main() {
-    // calc_precise_to(1);
-    println!("{}", calc_next_sum(0));
+    calc_precise_to(100);
+    // println!("{}", calc_next_sum(0));
 }
 
-fn calc_precise_to(out_to: usize) {
-    let front_const: BigDecimal = BigDecimal::from(
-        BigDecimal::from(53360) * BigDecimal::sqrt(&BigDecimal::from(640320)).unwrap(),
-    );
+fn calc_precise_to(out_to: u64) {
+    let front_const: BigDecimal =
+        BigDecimal::from(53360) * BigDecimal::sqrt(&BigDecimal::from(640320)).unwrap();
 
     let mut bad_pi: BigDecimal = BigDecimal::from(0);
+    let mut pi_approx_store: BigDecimal = BigDecimal::from(0);
 
     let mut sum_num: u64 = 0;
 
+    let mut accuracy = 0;
+
     loop {
         bad_pi += calc_next_sum(sum_num);
-        if sum_num < 10 {
-            break;
-        }
+        let good_pi = &front_const * bad_pi.inverse();
 
         sum_num += 1;
+
+        accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
+
+        println!("{}", accuracy);
+
+        if accuracy >= out_to {
+            break;
+        }
+        pi_approx_store = good_pi.clone();
     }
-
-    let good_pi = front_const * bad_pi.inverse();
-
-    println!("{}", good_pi);
+    println!("{}", pi_approx_store);
 }
 
 fn calc_next_sum(n: u64) -> BigDecimal {
@@ -43,12 +49,12 @@ fn calc_next_sum(n: u64) -> BigDecimal {
         + BigDecimal::from_u64(545140134).unwrap() * BigDecimal::from(n);
     let denom_two = spec_power(n);
 
-    println!(
-        "{}\n{}\n{}\n{}\n",
-        numer_one, denom_one, numer_two, denom_two
-    );
+    // println!(
+    //     "{}\n{}\n{}\n{}\n",
+    //     numer_one, denom_one, numer_two, denom_two
+    // );
 
-    return sign * (numer_one * numer_two) / (denom_one * denom_two);
+    sign * (numer_one * numer_two) / (denom_one * denom_two)
 }
 
 fn factorial(num: u64) -> BigDecimal {
@@ -62,7 +68,7 @@ fn factorial(num: u64) -> BigDecimal {
         ret *= BigDecimal::from(j);
     }
 
-    return ret;
+    ret
 }
 
 fn spec_power(mut num: u64) -> BigDecimal {
@@ -70,21 +76,36 @@ fn spec_power(mut num: u64) -> BigDecimal {
         return BigDecimal::from(1);
     }
     if num == 1 {
-        return (BigDecimal::from(8)
+        return BigDecimal::from(8)
             * BigDecimal::from_u64(100100025).unwrap()
-            * BigDecimal::from_u64(327843840).unwrap());
+            * BigDecimal::from_u64(327843840).unwrap();
     }
 
-    let mut ret = (BigDecimal::from(8)
+    let mut ret = BigDecimal::from(8)
         * BigDecimal::from_u64(100100025).unwrap()
-        * BigDecimal::from_u64(327843840).unwrap());
+        * BigDecimal::from_u64(327843840).unwrap();
 
     while num > 1 {
-        ret *= (BigDecimal::from(8)
+        ret *= BigDecimal::from(8)
             * BigDecimal::from_u64(100100025).unwrap()
-            * BigDecimal::from_u64(327843840).unwrap());
+            * BigDecimal::from_u64(327843840).unwrap();
         num -= 1;
     }
 
-    return ret;
+    ret
 }
+
+fn compare_pi(pi1: &BigDecimal, pi2: &BigDecimal, start: u64) -> u64 {
+    let pistr1 = pi1.to_string();
+    let pistr2 = pi2.to_string();
+    let mut ret = start;
+
+    for (idx, _char) in pistr1.chars().skip(start as usize).enumerate() {
+        if pistr1.chars().nth(idx) != pistr2.chars().nth(idx) {
+            ret = idx as u64;
+            break;
+        }
+    }
+    ret
+}
+// 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117065836261950984074393921085308210472766668564561791580936405626912908179578838718360526249888389145953252480
