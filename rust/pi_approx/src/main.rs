@@ -2,11 +2,11 @@ use bigdecimal::BigDecimal;
 use bigdecimal::FromPrimitive;
 
 fn main() {
-    calc_precise_to(100);
+    calc_precise_to(99);
     // println!("{}", calc_next_sum(0));
 }
 
-fn calc_precise_to(out_to: u64) {
+fn calc_precise_to(mut out_to: u64) {
     let front_const: BigDecimal =
         BigDecimal::from(53360) * BigDecimal::sqrt(&BigDecimal::from(640320)).unwrap();
 
@@ -17,6 +17,8 @@ fn calc_precise_to(out_to: u64) {
 
     let mut accuracy = 0;
 
+    out_to += 1;
+
     loop {
         bad_pi += calc_next_sum(sum_num);
         let good_pi = &front_const * bad_pi.inverse();
@@ -25,12 +27,11 @@ fn calc_precise_to(out_to: u64) {
 
         accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
 
-        println!("{}", accuracy);
+        pi_approx_store = good_pi.clone();
 
         if accuracy >= out_to {
             break;
         }
-        pi_approx_store = good_pi.clone();
     }
     println!("{}", pi_approx_store);
 }
