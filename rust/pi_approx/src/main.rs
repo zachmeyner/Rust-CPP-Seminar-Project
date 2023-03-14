@@ -1,15 +1,17 @@
+use rug::Rational;
 use rug::{float::Special, Float};
+use rug::{Assign, Integer};
 
 fn main() {
-    calc_precise_to(205);
+    calc_precise_to(10);
     // println!("{}", calc_next_sum(0));
 }
 
 fn calc_precise_to(out_to: u32) {
-    let front_const = Float::with_val(10_000, 53360 * Float::with_val(10_000, 640320).sqrt());
-
-    let mut bad_pi = Float::with_val(10_000, Special::Zero);
-    let mut pi_approx_store = Float::with_val(10_000, Special::Zero);
+    // let front_const = Float::with_val(10_000, 53360 * Float::with_val(10_000, 640320).sqrt());
+    let front_const = Integer::from(53360) * Integer::from(640320).sqrt();
+    let mut bad_pi = Rational::from(0);
+    let mut pi_approx_store = Rational::from(0);
 
     let mut sum_num: u32 = 0;
 
@@ -18,9 +20,14 @@ fn calc_precise_to(out_to: u32) {
     loop {
         let cpy = bad_pi.clone();
         bad_pi = cpy + calc_next_sum(sum_num);
-        let good_pi = &front_const * (1 / bad_pi.clone());
+        let good_pi: Rational = &front_const * Rational::from((bad_pi.denom(), bad_pi.numer()));
 
-        accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
+        println!("{}", bad_pi);
+
+        let pi_one = Integer::from(good_pi.numer() / good_pi.denom());
+        let pi_two = Integer::from(pi_approx_store.numer() / pi_approx_store.denom());
+
+        accuracy = compare_pi(&pi_one, &pi_two, accuracy);
 
         pi_approx_store = good_pi;
 
@@ -28,6 +35,8 @@ fn calc_precise_to(out_to: u32) {
             break;
         }
         sum_num += 1;
+
+        break;
     }
 
     let pi_str = pi_approx_store.to_string();
@@ -37,22 +46,35 @@ fn calc_precise_to(out_to: u32) {
     println!("{}\n{}", finstr, accuracy);
 }
 
-fn calc_next_sum(n: u32) -> Float {
+fn calc_next_sum(n: u32) -> Rational {
     let sign = if n % 2 == 0 { 1 } else { -1 };
-    let numer_one = Float::with_val(10_000, Float::factorial(6 * n));
 
-    let denom_one = Float::with_val(10_000, Float::factorial(n))
-        * Float::with_val(10_000, Float::factorial(n))
-        * Float::with_val(10_000, Float::factorial(n))
-        * Float::with_val(10_000, Float::factorial(3 * n));
-    let numer_two = Float::with_val(10_000, 13591409)
-        + Float::with_val(10_000, 545140134) * Float::with_val(10_000, n);
-    let denom_two = Float::with_val(10_000, Float::u_pow_u(640320, 3 * n));
+    let frac_one = Rational::from((
+        Integer::factorial(6 * n),
+        Integer::from(Integer::factorial(n))
+            * Integer::from(Integer::factorial(n))
+            * Integer::from(Integer::factorial(n))
+            * Integer::from(Integer::factorial(3 * n)),
+    ));
 
-    sign * (numer_one / denom_one) * (numer_two / denom_two)
+    let frac_two = Rational::from((
+        13591409 + Integer::from(545140134) * Integer::from(n),
+        Integer::u_pow_u(640320, 3 * n),
+    ));
+    // let numer_one = Float::with_val(10_000, Float::factorial(6 * n));
+    //
+    // let denom_one = Float::with_val(10_000, Float::factorial(n))
+    //     * Float::with_val(10_000, Float::factorial(n))
+    //     * Float::with_val(10_000, Float::factorial(n))
+    //     * Float::with_val(10_000, Float::factorial(3 * n));
+    // let numer_two = Float::with_val(10_000, 13591409)
+    //     + Float::with_val(10_000, 545140134) * Float::with_val(10_000, n);
+    // let denom_two = Float::with_val(10_000, Float::u_pow_u(640320, 3 * n));
+
+    sign * frac_one * frac_two
 }
 
-fn compare_pi(pi1: &Float, pi2: &Float, start: u32) -> u32 {
+fn compare_pi(pi1: &Integer, pi2: &Integer, start: u32) -> u32 {
     let pi_str1 = pi1.to_string();
     let pi_str2 = pi2.to_string();
 
