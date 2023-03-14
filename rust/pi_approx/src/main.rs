@@ -1,9 +1,68 @@
+use rug::{float::Special, Float};
+
 fn main() {
-    calc_precise_to(500);
+    calc_precise_to(205);
     // println!("{}", calc_next_sum(0));
 }
 
-fn calc_precise_to(out_to: u64) {}
+fn calc_precise_to(out_to: u32) {
+    let front_const = Float::with_val(10_000, 53360 * Float::with_val(10_000, 640320).sqrt());
+
+    let mut bad_pi = Float::with_val(10_000, Special::Zero);
+    let mut pi_approx_store = Float::with_val(10_000, Special::Zero);
+
+    let mut sum_num: u32 = 0;
+
+    let mut accuracy = 0;
+
+    loop {
+        let cpy = bad_pi.clone();
+        bad_pi = cpy + calc_next_sum(sum_num);
+        let good_pi = &front_const * (1 / bad_pi.clone());
+
+        accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
+
+        pi_approx_store = good_pi;
+
+        if accuracy >= out_to {
+            break;
+        }
+        sum_num += 1;
+    }
+
+    let pi_str = pi_approx_store.to_string();
+
+    let finstr: String = pi_str.chars().take(accuracy as usize).collect();
+
+    println!("{}\n{}", finstr, accuracy);
+}
+
+fn calc_next_sum(n: u32) -> Float {
+    let sign = if n % 2 == 0 { 1 } else { -1 };
+    let numer_one = Float::with_val(10_000, Float::factorial(6 * n));
+
+    let denom_one = Float::with_val(10_000, Float::factorial(n))
+        * Float::with_val(10_000, Float::factorial(n))
+        * Float::with_val(10_000, Float::factorial(n))
+        * Float::with_val(10_000, Float::factorial(3 * n));
+    let numer_two = Float::with_val(10_000, 13591409)
+        + Float::with_val(10_000, 545140134) * Float::with_val(10_000, n);
+    let denom_two = Float::with_val(10_000, Float::u_pow_u(640320, 3 * n));
+
+    sign * (numer_one / denom_one) * (numer_two / denom_two)
+}
+
+fn compare_pi(pi1: &Float, pi2: &Float, start: u32) -> u32 {
+    let pi_str1 = pi1.to_string();
+    let pi_str2 = pi2.to_string();
+
+    for i in start..pi_str1.len() as u32 {
+        if pi_str1.chars().nth(i as usize) != pi_str2.chars().nth(i as usize) {
+            return i;
+        }
+    }
+    return start;
+}
 
 /*
 fn calc_precise_to(out_to: u64) {
