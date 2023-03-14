@@ -1,17 +1,17 @@
+use rug::Integer;
 use rug::Rational;
 use rug::{float::Special, Float};
-use rug::{Assign, Integer};
 
 fn main() {
-    calc_precise_to(10);
+    calc_precise_to(50000);
     // println!("{}", calc_next_sum(0));
 }
 
 fn calc_precise_to(out_to: u32) {
     // let front_const = Float::with_val(10_000, 53360 * Float::with_val(10_000, 640320).sqrt());
-    let front_const = Integer::from(53360) * Integer::from(640320).sqrt();
+    let front_const = Float::with_val(1_000_000, 53360) * Float::with_val(10_000, 640320).sqrt();
     let mut bad_pi = Rational::from(0);
-    let mut pi_approx_store = Rational::from(0);
+    let mut pi_approx_store = Float::with_val(1_000_000, Special::Zero);
 
     let mut sum_num: u32 = 0;
 
@@ -20,29 +20,35 @@ fn calc_precise_to(out_to: u32) {
     loop {
         let cpy = bad_pi.clone();
         bad_pi = cpy + calc_next_sum(sum_num);
-        let good_pi: Rational = &front_const * Rational::from((bad_pi.denom(), bad_pi.numer()));
+        let good_pi: Float = front_const.clone() * Rational::from((bad_pi.denom(), bad_pi.numer()));
 
-        println!("{}", bad_pi);
+        // let pi_one = Integer::from(good_pi.numer() * Integer::from(Integer::u_pow_u(10, 500)))
+        //     / good_pi.denom();
+        // let pi_two =
+        //     Integer::from(pi_approx_store.numer() * Integer::from(Integer::u_pow_u(10, 500)))
+        //         / pi_approx_store.denom();
 
-        let pi_one = Integer::from(good_pi.numer() / good_pi.denom());
-        let pi_two = Integer::from(pi_approx_store.numer() / pi_approx_store.denom());
-
-        accuracy = compare_pi(&pi_one, &pi_two, accuracy);
+        accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
 
         pi_approx_store = good_pi;
+
+        // println!("{}", accuracy);
+
+        //  println!("{}", pi_approx_store);
 
         if accuracy >= out_to {
             break;
         }
         sum_num += 1;
-
-        break;
     }
 
     let pi_str = pi_approx_store.to_string();
 
-    let finstr: String = pi_str.chars().take(accuracy as usize).collect();
+    let finstr: String = pi_str.chars().take(accuracy as usize + 2).collect();
 
+    // let fin =
+    //     Integer::from(pi_approx_store.numer() * Integer::from(Integer::u_pow_u(10, accuracy)))
+    //         / pi_approx_store.denom();
     println!("{}\n{}", finstr, accuracy);
 }
 
@@ -74,7 +80,7 @@ fn calc_next_sum(n: u32) -> Rational {
     sign * frac_one * frac_two
 }
 
-fn compare_pi(pi1: &Integer, pi2: &Integer, start: u32) -> u32 {
+fn compare_pi(pi1: &Float, pi2: &Float, start: u32) -> u32 {
     let pi_str1 = pi1.to_string();
     let pi_str2 = pi2.to_string();
 
