@@ -1,12 +1,12 @@
-use bigdecimal::BigDecimal;
-use bigdecimal::FromPrimitive;
-
 fn main() {
-    calc_precise_to(99);
+    calc_precise_to(500);
     // println!("{}", calc_next_sum(0));
 }
 
-fn calc_precise_to(mut out_to: u64) {
+fn calc_precise_to(out_to: u64) {}
+
+/*
+fn calc_precise_to(out_to: u64) {
     let front_const: BigDecimal =
         BigDecimal::from(53360) * BigDecimal::sqrt(&BigDecimal::from(640320)).unwrap();
 
@@ -16,8 +16,6 @@ fn calc_precise_to(mut out_to: u64) {
     let mut sum_num: u64 = 0;
 
     let mut accuracy = 0;
-
-    out_to += 1;
 
     loop {
         bad_pi += calc_next_sum(sum_num);
@@ -99,14 +97,13 @@ fn spec_power(mut num: u64) -> BigDecimal {
 fn compare_pi(pi1: &BigDecimal, pi2: &BigDecimal, start: u64) -> u64 {
     let pistr1 = pi1.to_string();
     let pistr2 = pi2.to_string();
-    let mut ret = start;
 
-    for (idx, _char) in pistr1.chars().skip(start as usize).enumerate() {
+    for idx in start as usize..pistr1.len() {
         if pistr1.chars().nth(idx) != pistr2.chars().nth(idx) {
-            ret = idx as u64;
-            break;
+            return idx as u64;
         }
     }
-    ret
+    start
 }
 // 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117065836261950984074393921085308210472766668564561791580936405626912908179578838718360526249888389145953252480
+*/
