@@ -1,5 +1,32 @@
+use std::env;
+
 fn main() {
-    extended_sieve(100000000);
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() > 2 {
+        eprintln!("No Input");
+        std::process::exit(1)
+    }
+
+    let out_to = args[1].parse::<usize>();
+
+    match out_to {
+        Ok(_) => {
+            let out = out_to.unwrap();
+            if out == usize::MAX {
+                eprintln!("Number must be less than {}", usize::MAX - 1);
+                std::process::exit(1)
+            }
+
+            extended_sieve(out);
+        }
+        Err(_) => {
+            eprintln!("Enter a positive integer");
+            std::process::exit(1)
+        }
+    }
+
+    // extended_sieve(100000000);
     // extended_sieve(100);
     println!();
 }
