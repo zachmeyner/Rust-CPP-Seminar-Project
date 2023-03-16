@@ -13,14 +13,14 @@ fn main() {
 
     match precise {
         Ok(_) => {
-            if precise.as_ref().unwrap() > &150_000 {
-                eprintln!("u32 must be less than 150,000");
+            if precise.as_ref().unwrap() > &2_000_000 {
+                eprintln!("u32 must be less than 2_000_000");
                 std::process::exit(1)
             }
             calc_precise_to(precise.unwrap());
         }
         Err(_) => {
-            eprintln!("Non u32 type entered. Enter a u32 < 150,000.");
+            eprintln!("Non u32 type entered. Enter a u32 < 2_000_000.");
             std::process::exit(1)
         }
     }
@@ -30,7 +30,7 @@ fn main() {
 
 fn calc_precise_to(out_to: u32) {
     let front_const: Integer = Integer::from(53360)
-        * (Integer::from(640320) * Integer::from(Integer::u_pow_u(10, 300_000))).sqrt();
+        * (Integer::from(640320) * Integer::from(Integer::u_pow_u(10, 2_500_500))).sqrt();
     let mut bad_pi = Rational::from(0);
     let mut pi_approx_store = Integer::from(0);
 
@@ -54,6 +54,8 @@ fn calc_precise_to(out_to: u32) {
             break;
         }
         sum_num += 1;
+
+        // println!("{}", accuracy);
     }
 
     let pi_str = pi_approx_store.to_string();
