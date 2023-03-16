@@ -1,5 +1,7 @@
+use rug::Float;
 use rug::Integer;
 use rug::Rational;
+use rug::float;
 use std::env;
 
 fn main() {
@@ -29,8 +31,8 @@ fn main() {
 }
 
 fn calc_precise_to(out_to: u32) {
-    let front_const: Integer = Integer::from(53360)
-        * (Integer::from(640320) * Integer::from(Integer::u_pow_u(10, 2_500_500))).sqrt();
+    let float_accuracy = 8 * 20 + 32;
+    let front_const: Float = Float::with_val(float_ac, 426880*Float::with_val(float_accuracy, ))
     let mut bad_pi = Rational::from(0);
     let mut pi_approx_store = Integer::from(0);
 
@@ -95,3 +97,5 @@ fn compare_pi(pi1: &Integer, pi2: &Integer, start: u32) -> u32 {
     }
     start
 }
+
+// for floating point accuracy 8 * 20 + 32
