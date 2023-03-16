@@ -1,13 +1,36 @@
 use rug::Integer;
 use rug::Rational;
+use std::env;
 
 fn main() {
-    calc_precise_to(100_000);
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 2 {
+        eprintln!("No input");
+        std::process::exit(1)
+    }
+
+    let precise = args[1].parse::<u32>();
+
+    match precise {
+        Ok(_) => {
+            if precise.as_ref().unwrap() > &150_000 {
+                eprintln!("u32 must be less than 150,000");
+                std::process::exit(1)
+            }
+            calc_precise_to(precise.unwrap());
+        }
+        Err(_) => {
+            eprintln!("Non u32 type entered. Enter a u32 < 150,000.");
+            std::process::exit(1)
+        }
+    }
+
+    // calc_precise_to(precise);
 }
 
 fn calc_precise_to(out_to: u32) {
-    let front_const = Integer::from(53360)
-        * Integer::from(640320 * Integer::from(Integer::u_pow_u(10, 300_000))).sqrt();
+    let front_const: Integer = Integer::from(53360)
+        * (Integer::from(640320) * Integer::from(Integer::u_pow_u(10, 300_000))).sqrt();
     let mut bad_pi = Rational::from(0);
     let mut pi_approx_store = Integer::from(0);
 
@@ -68,5 +91,5 @@ fn compare_pi(pi1: &Integer, pi2: &Integer, start: u32) -> u32 {
             return i;
         }
     }
-    return start;
+    start
 }
