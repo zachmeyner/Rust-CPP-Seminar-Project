@@ -1,11 +1,13 @@
+use rug::float::Special;
 use rug::Float;
 use rug::Integer;
 use rug::Rational;
-use rug::float;
 use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    // calc_precise_to(100);
+    // return;
     if args.len() < 2 {
         eprintln!("No input");
         std::process::exit(1)
@@ -31,22 +33,41 @@ fn main() {
 }
 
 fn calc_precise_to(out_to: u32) {
-    let float_accuracy = 8 * 20 + 32;
-    let front_const: Float = Float::with_val(float_ac, 426880*Float::with_val(float_accuracy, ))
+    let float_accuracy = out_to * 20 + 32;
+
+    let front_const: Float = Float::with_val(
+        float_accuracy,
+        426880 * Float::with_val(float_accuracy, 10005).sqrt(),
+    );
+
     let mut bad_pi = Rational::from(0);
-    let mut pi_approx_store = Integer::from(0);
+    let mut pi_approx_store = Float::with_val(float_accuracy, Special::Zero);
 
     let mut sum_num: u32 = 0;
 
     let mut accuracy = 0;
 
+    let consts: Vec<Integer> = vec![
+        Integer::from(545140134),
+        Integer::from(13591409),
+        Integer::from_str_radix("-262537412640768000", 10).unwrap(),
+    ];
+
+    // nth_vals[0] = Linear
+    // nth_vals[1] = Exponential
+    // nth_vals[2] = Multinomial
+    // nth_vals[3] = k_n
+    let mut nth_vals: Vec<Rational> = vec![
+        consts[1].clone().into(),
+        Rational::from(1),
+        Rational::from(1),
+        Rational::from(-6),
+    ];
+
     loop {
-        let cpy = bad_pi.clone();
-        bad_pi = cpy + calc_next_sum(sum_num);
+        bad_pi = &bad_pi + calc_next_sum(sum_num, &consts, &mut nth_vals);
 
-        let pi_ratio: Rational = &front_const * Rational::from((bad_pi.denom(), bad_pi.numer()));
-
-        let good_pi: Integer = Integer::from(pi_ratio.numer() / pi_ratio.denom());
+        let good_pi = Float::with_val(float_accuracy, &front_const * &bad_pi);
 
         accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
 
@@ -56,8 +77,6 @@ fn calc_precise_to(out_to: u32) {
             break;
         }
         sum_num += 1;
-
-        // println!("{}", accuracy);
     }
 
     let pi_str = pi_approx_store.to_string();
@@ -67,26 +86,30 @@ fn calc_precise_to(out_to: u32) {
     println!("{}\n{}", finstr, accuracy);
 }
 
-fn calc_next_sum(n: u32) -> Rational {
-    let sign = if n % 2 == 0 { 1 } else { -1 };
+fn calc_next_sum(n: u32, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> Rational {
+    let ret: Rational = Rational::from(&nth_val[2] * &nth_val[0]) / &nth_val[1];
 
-    let frac_one = Rational::from((
-        Integer::factorial(6 * n),
-        Integer::from(Integer::factorial(n))
-            * Integer::from(Integer::factorial(n))
-            * Integer::from(Integer::factorial(n))
-            * Integer::from(Integer::factorial(3 * n)),
-    ));
+    // This finds the next multinomial :)
+    // ! DO NOT TOUCH OR SO HELP ME
+    nth_val[3] += 12;
+    let multnom_numer = Rational::from(
+        &nth_val[3] * Rational::from(&nth_val[3] * &nth_val[3]) - Rational::from(16 * &nth_val[3]),
+    );
+    let multnom_denom = Rational::from((n + 1) * (n + 1) * (n + 1));
+    nth_val[2] *= multnom_numer / multnom_denom;
 
-    let frac_two = Rational::from((
-        13591409 + Integer::from(545140134) * Integer::from(n),
-        Integer::u_pow_u(640320, 3 * n),
-    ));
+    // Way easier to find the next linear
+    nth_val[0] += &consts[0];
 
-    sign * frac_one * frac_two
+    // Finds the next exponential value
+    nth_val[1] *= &consts[2];
+
+    // ret = Rational::from(&nth_val[2] * &nth_val[0]) / &nth_val[1];
+
+    ret
 }
 
-fn compare_pi(pi1: &Integer, pi2: &Integer, start: u32) -> u32 {
+fn compare_pi(pi1: &Float, pi2: &Float, start: u32) -> u32 {
     let pi_str1 = pi1.to_string();
     let pi_str2 = pi2.to_string();
 
