@@ -13,7 +13,7 @@ fn main() {
         std::process::exit(1)
     }
 
-    let precise = args[1].parse::<u32>();
+    let precise = args[1].parse::<u64>();
 
     match precise {
         Ok(_) => {
@@ -32,8 +32,8 @@ fn main() {
     // calc_precise_to(precise);
 }
 
-fn calc_precise_to(out_to: u32) {
-    let float_accuracy = out_to * 20 + 32;
+fn calc_precise_to(out_to: u64) {
+    let float_accuracy = out_to as u32 * 20 + 32;
 
     let front_const: Float = Float::with_val(
         float_accuracy,
@@ -43,9 +43,9 @@ fn calc_precise_to(out_to: u32) {
     let mut bad_pi = Rational::from(0);
     let mut pi_approx_store = Float::with_val(float_accuracy, Special::Zero);
 
-    let mut sum_num: u32 = 0;
+    let mut sum_num: u64 = 0;
 
-    let mut accuracy = 0;
+    let mut accuracy: u64 = 0;
 
     let consts: Vec<Integer> = vec![
         Integer::from(545140134),
@@ -73,6 +73,8 @@ fn calc_precise_to(out_to: u32) {
 
         pi_approx_store = good_pi;
 
+        println!("{}", accuracy);
+
         if accuracy >= out_to {
             break;
         }
@@ -86,7 +88,7 @@ fn calc_precise_to(out_to: u32) {
     println!("{}\n{}", finstr, accuracy);
 }
 
-fn calc_next_sum(n: u32, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> Rational {
+fn calc_next_sum(n: u64, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> Rational {
     let ret: Rational = Rational::from(&nth_val[2] * &nth_val[0]) / &nth_val[1];
 
     // This finds the next multinomial :)
@@ -109,11 +111,11 @@ fn calc_next_sum(n: u32, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> 
     ret
 }
 
-fn compare_pi(pi1: &Float, pi2: &Float, start: u32) -> u32 {
+fn compare_pi(pi1: &Float, pi2: &Float, start: u64) -> u64 {
     let pi_str1 = pi1.to_string();
     let pi_str2 = pi2.to_string();
 
-    for i in start..pi_str1.len() as u32 {
+    for i in start..pi_str1.len() as u64 {
         if pi_str1.chars().nth(i as usize) != pi_str2.chars().nth(i as usize) {
             return i;
         }
