@@ -88,13 +88,14 @@ fn calc_precise_to(out_to: u64) {
     println!("{}\n{}", finstr, accuracy);
 }
 
-fn calc_next_sum(n: u64, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> Rational {
+fn calc_next_sum(n: u64, consts: &[Integer], nth_val: &mut [Rational]) -> Rational {
     let ret: Rational = Rational::from(&nth_val[2] * &nth_val[0]) / &nth_val[1];
 
     // This finds the next multinomial :)
     // ! DO NOT TOUCH OR SO HELP ME
     nth_val[3] += 12;
-    let multnom_numer = (&nth_val[3] * Rational::from(&nth_val[3] * &nth_val[3]) - Rational::from(16 * &nth_val[3]));
+    let multnom_numer =
+        &nth_val[3] * Rational::from(&nth_val[3] * &nth_val[3]) - Rational::from(16 * &nth_val[3]);
     let multnom_denom = Rational::from((n + 1) * (n + 1) * (n + 1));
     nth_val[2] *= multnom_numer / multnom_denom;
 
