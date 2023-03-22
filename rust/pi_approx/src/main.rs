@@ -67,13 +67,13 @@ fn calc_precise_to(out_to: u64) {
     loop {
         bad_pi = &bad_pi + calc_next_sum(sum_num, &consts, &mut nth_vals);
 
-        let good_pi = Float::with_val(float_accuracy, &front_const * &bad_pi);
+        let good_pi = Float::with_val(float_accuracy, &front_const * &bad_pi.clone().recip());
 
         accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
 
         pi_approx_store = good_pi;
 
-        println!("{}", accuracy);
+        // println!("{}", accuracy);
 
         if accuracy >= out_to {
             break;
@@ -112,12 +112,14 @@ fn calc_next_sum(n: u64, consts: &Vec<Integer>, nth_val: &mut Vec<Rational>) -> 
 }
 
 fn compare_pi(pi1: &Float, pi2: &Float, start: u64) -> u64 {
-    let pi_str1 = pi1.to_string();
-    let pi_str2 = pi2.to_string();
+    let binding = pi1.to_string();
+    let pi_str1 = binding.as_bytes();
+    let binding_2 = pi2.to_string();
+    let pi_str2 = binding_2.as_bytes();
 
-    for i in start..pi_str1.len() as u64 {
-        if pi_str1.chars().nth(i as usize) != pi_str2.chars().nth(i as usize) {
-            return i;
+    for (idx, _val) in pi_str1.iter().enumerate() {
+        if pi_str1[idx] != pi_str2[idx] {
+            return idx as u64;
         }
     }
     start
