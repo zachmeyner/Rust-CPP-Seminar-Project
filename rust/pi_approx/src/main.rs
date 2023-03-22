@@ -1,4 +1,4 @@
-use rug::float::Special;
+// use rug::float::Special;
 use rug::Float;
 use rug::Integer;
 use rug::Rational;
@@ -33,6 +33,8 @@ fn main() {
 }
 
 fn calc_precise_to(out_to: u64) {
+    let iterations = f64::ceil(out_to as f64 / 14.18) as u64;
+
     let float_accuracy = out_to as u32 * 20 + 32;
 
     let front_const: Float = Float::with_val(
@@ -41,11 +43,11 @@ fn calc_precise_to(out_to: u64) {
     );
 
     let mut bad_pi = Rational::from(0);
-    let mut pi_approx_store = Float::with_val(float_accuracy, Special::Zero);
+    // let mut pi_approx_store = Float::with_val(float_accuracy, Special::Zero);
 
     let mut sum_num: u64 = 0;
 
-    let mut accuracy: u64 = 0;
+    // let mut accuracy: u64 = 0;
 
     let consts: Vec<Integer> = vec![
         Integer::from(545140134),
@@ -64,28 +66,24 @@ fn calc_precise_to(out_to: u64) {
         Rational::from(-6),
     ];
 
-    loop {
+    while sum_num <= iterations {
         bad_pi = &bad_pi + calc_next_sum(sum_num, &consts, &mut nth_vals);
 
-        let good_pi = Float::with_val(float_accuracy, &front_const * &bad_pi.clone().recip());
+        // accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
 
-        accuracy = compare_pi(&good_pi, &pi_approx_store, accuracy);
-
-        pi_approx_store = good_pi;
+        // pi_approx_store = good_pi;
 
         // println!("{}", accuracy);
 
-        if accuracy >= out_to {
-            break;
-        }
         sum_num += 1;
     }
+    let good_pi = Float::with_val(float_accuracy, &front_const * &bad_pi.recip());
 
-    let pi_str = pi_approx_store.to_string();
+    let pi_str = good_pi.to_string();
 
-    let finstr: String = pi_str.chars().take(accuracy as usize + 2).collect();
+    let finstr: String = pi_str.chars().take(out_to as usize + 2).collect();
 
-    println!("{}\n{}", finstr, accuracy);
+    println!("{}\n{}", finstr, out_to);
 }
 
 fn calc_next_sum(n: u64, consts: &[Integer], nth_val: &mut [Rational]) -> Rational {
@@ -110,18 +108,18 @@ fn calc_next_sum(n: u64, consts: &[Integer], nth_val: &mut [Rational]) -> Ration
     ret
 }
 
-fn compare_pi(pi1: &Float, pi2: &Float, start: u64) -> u64 {
-    let binding = pi1.to_string();
-    let pi_str1 = binding.as_bytes();
-    let binding_2 = pi2.to_string();
-    let pi_str2 = binding_2.as_bytes();
-
-    for (idx, _val) in pi_str1.iter().enumerate() {
-        if pi_str1[idx] != pi_str2[idx] {
-            return idx as u64;
-        }
-    }
-    start
-}
+// fn compare_pi(pi1: &Float, pi2: &Float, start: u64) -> u64 {
+//     let binding = pi1.to_string();
+//     let pi_str1 = binding.as_bytes();
+//     let binding_2 = pi2.to_string();
+//     let pi_str2 = binding_2.as_bytes();
+//
+//     for (idx, _val) in pi_str1.iter().enumerate() {
+//         if pi_str1[idx] != pi_str2[idx] {
+//             return idx as u64;
+//         }
+//     }
+//     start
+// }
 
 // for floating point accuracy 8 * 20 + 32
