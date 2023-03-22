@@ -6,7 +6,7 @@
 
 void calcPreciseTo(unsigned long int outTo);
 void calcNextSum(mpq_t sum, unsigned long int n);
-void compare_pi(mpf_t pi_1, mpf_t pi_2);
+unsigned long comparePi(mpfr_t pi_1, mpfr_t pi_2);
 
 mpz_t linear;
 mpz_t exponential;
@@ -113,3 +113,5 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpz_add(linear, linear, LINEARCONST);
     mpz_mul(exponential, exponential, EXPONENTIALCONST);
 }
+
+unsigned long comparePi(mpfr_t pi_1, mpfr_t pi2) {}
