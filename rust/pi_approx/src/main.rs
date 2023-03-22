@@ -81,7 +81,7 @@ fn calc_precise_to(out_to: u64) {
 
     let pi_str = good_pi.to_string();
 
-    let finstr: String = pi_str.chars().take(out_to as usize + 2).collect();
+    let finstr: String = pi_str.chars().take(out_to as usize + 1).collect();
 
     println!("{}\n{}", finstr, out_to);
 }
