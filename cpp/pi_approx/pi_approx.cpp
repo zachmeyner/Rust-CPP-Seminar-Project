@@ -114,4 +114,4 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpz_mul(exponential, exponential, EXPONENTIALCONST);
 }
 
-unsigned long comparePi(mpfr_t pi_1, mpfr_t pi2) {}
+unsigned long comparePi(mpfr_t pi_1, mpfr_t pi2, unsigned long int acc) {}
