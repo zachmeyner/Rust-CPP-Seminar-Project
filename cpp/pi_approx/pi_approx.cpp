@@ -85,9 +85,10 @@ void calcPreciseTo(unsigned long int outTo) {
     printf("%s", outStr);
 
     // A lot of clears
-    mpz_clears(linear, exponential, kth, LINEARCONST, EXPONENTIALCONST);
+    mpz_clears(linear, exponential, kth, LINEARCONST, EXPONENTIALCONST,
+               (mpz_ptr)0);
     mpfr_free_str(outStr);
-    mpq_clears(multinomial, badPi);
+    mpq_clears(multinomial, badPi, (mpq_ptr)0);
     mpfr_clears(frontConst, goodPi, (mpfr_ptr)0);
 }
 
@@ -125,10 +126,10 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpq_init(monAdd);
     mpq_set_num(monAdd, monNum);
     mpq_set_den(monAdd, monDen);
-    mpq_mul(multinomial, multinomial, monAdd);
+    mpq_mul(multinomial, monAdd, multinomial);
 
-    mpq_clears(monAdd);
-    mpz_clears(monNum, monDen);
+    mpq_clear(monAdd);
+    mpz_clears(monNum, monDen, (mpz_ptr)0);
 
     // Iterate the linear value
     mpz_add(linear, linear, LINEARCONST);
