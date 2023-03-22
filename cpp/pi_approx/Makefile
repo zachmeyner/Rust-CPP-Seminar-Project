@@ -1,5 +1,6 @@
 OBJS = pi_approx
-CXXFlags = -OFast -Wall -lgmp -lmpfr -std=c++2a
+CXXFlags =  -g -OFast -std=c++2a -Wall
+LDLIBS = -lmpfr -lgmp
 
 all: ${OBJS}
 

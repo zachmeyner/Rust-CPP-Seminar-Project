@@ -1,12 +1,11 @@
 #include <gmp.h>
-#include <mpf2mpfr.h>
+#include <math.h>
 #include <mpfr.h>
 #include <stdio.h>
 #include <string>
 
 void calcPreciseTo(unsigned long int outTo);
 void calcNextSum(mpq_t sum, unsigned long int n);
-unsigned long comparePi(mpfr_t pi_1, mpfr_t pi_2);
 
 mpz_t linear;
 mpz_t exponential;
@@ -16,7 +15,7 @@ mpz_t kth;
 mpz_t LINEARCONST;
 mpz_t EXPONENTIALCONST;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Input as pi_approx [DIGITS]\n");
         return 1;
@@ -24,27 +23,36 @@ int main(int argc, char* argv[]) {
 
     std::string precision = argv[1];
 
-    for (char const& ch : precision) {
+    for (char const &ch : precision) {
         if (!std::isdigit(ch)) {
             fprintf(stderr, "Input is not a number\n");
             return 1;
         }
     }
+
+    unsigned long int out = std::stoul(precision);
+
+    calcPreciseTo(out);
+
+    return 0;
 }
 
 void calcPreciseTo(unsigned long int outTo) {
+    unsigned long int iterations = ceilf32(float(outTo) / 14.8);
     unsigned long int floatAccuracy = outTo * 20 + 32;
     mpfr_t frontConst;
     mpq_t badPi;
-    mpfr_t piStore;
+    mpfr_t goodPi;
+
+    char *outStr = NULL;
 
     mpf_set_default_prec(floatAccuracy);
 
-    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDD);
+    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDN);
 
     // Set the front constant that is always multiplied by the sum
-    mpfr_sqrt(frontConst, frontConst, MPFR_RNDD);
-    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDD);
+    mpfr_sqrt(frontConst, frontConst, MPFR_RNDN);
+    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDN);
 
     // Set the linear, exponential, and multinomial iterative values
     mpz_init_set_ui(linear, 13591409);
@@ -60,14 +68,27 @@ void calcPreciseTo(unsigned long int outTo) {
     // Init pi-storage vars
     mpq_init(badPi);
     mpq_set_ui(badPi, 0, 1);
-    mpfr_init_set_ui(piStore, 0, MPFR_RNDD);
 
-    unsigned long int accuracy = 0;
-    unsigned long int sumNum = 0;
-
-    while (accuracy < outTo) {
+    for (unsigned long int sumNum = 0; sumNum <= iterations; sumNum++) {
         calcNextSum(badPi, sumNum);
     }
+
+    mpq_inv(badPi, badPi);
+
+    mpfr_init_set_q(goodPi, badPi, MPFR_RNDN);
+    mpfr_mul(goodPi, goodPi, frontConst, MPFR_RNDN);
+
+    mpfr_exp_t e;
+
+    outStr = mpfr_get_str(NULL, &e, 10, outTo, goodPi, MPFR_RNDN);
+
+    printf("%s", outStr);
+
+    // A lot of clears
+    mpz_clears(linear, exponential, kth, LINEARCONST, EXPONENTIALCONST);
+    mpfr_free_str(outStr);
+    mpq_clears(multinomial, badPi);
+    mpfr_clears(frontConst, goodPi, (mpfr_ptr)0);
 }
 
 void calcNextSum(mpq_t sum, unsigned long int n) {
@@ -113,5 +134,3 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpz_add(linear, linear, LINEARCONST);
     mpz_mul(exponential, exponential, EXPONENTIALCONST);
 }
-
-unsigned long comparePi(mpfr_t pi_1, mpfr_t pi2, unsigned long int acc) {}
