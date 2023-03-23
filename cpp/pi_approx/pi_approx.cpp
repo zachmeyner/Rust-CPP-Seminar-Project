@@ -49,26 +49,26 @@ void calcPreciseTo(unsigned long int outTo) {
 
     mpfr_set_default_prec(floatAccuracy);
 
-    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDD);
+    mpfr_init_set_si(frontConst, 10005, MPFR_RNDD);
 
     // Set the front constant that is always multiplied by the sum
     mpfr_sqrt(frontConst, frontConst, MPFR_RNDD);
-    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDD);
+    mpfr_mul_si(frontConst, frontConst, 426880, MPFR_RNDD);
 
     // Set the linear, exponential, and multinomial iterative values
-    mpz_init_set_ui(linear, 13591409);
-    mpz_init_set_ui(exponential, 1);
+    mpz_init_set_si(linear, 13591409);
+    mpz_init_set_si(exponential, 1);
     mpq_init(multinomial);
-    mpq_set_ui(multinomial, 1, 1);
+    mpq_set_si(multinomial, 1, 1);
     mpz_init_set_si(kth, -6);
 
     // Set constant values for linear and exponential iterations
-    mpz_init_set_ui(LINEARCONST, 545140134);
-    mpz_init_set_str(EXPONENTIALCONST, "262537412640768000", 10);
+    mpz_init_set_si(LINEARCONST, 545140134);
+    mpz_init_set_str(EXPONENTIALCONST, "-262537412640768000", 10);
 
     // Init pi-storage vars
     mpq_init(badPi);
-    mpq_set_ui(badPi, 0, 1);
+    mpq_set_si(badPi, 0, 1);
 
     for (unsigned long int sumNum = 0; sumNum <= iterations; sumNum++) {
         calcNextSum(badPi, sumNum);
@@ -110,16 +110,24 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
 
     // Iteratre the multinomial
     // Numerator
-    mpz_add_ui(kth, kth, 12);
+    mpz_t tmp;
+
+    mpz_init_set_si(tmp, 12);
+    mpz_add(kth, kth, tmp);
+
+    mpz_clear(tmp);
     // k^3
     mpz_init_set(monNum, kth);
     mpz_mul(monNum, monNum, kth);
     mpz_mul(monNum, monNum, kth);
     // -16k
-    mpz_submul_ui(monNum, kth, 16);
+    mpz_init_set_si(tmp, -16);
+    mpz_mul(tmp, tmp, kth);
+    mpz_add(monNum, monNum, tmp);
+    mpz_clear(tmp);
 
     // Denominator
-    mpz_init_set_ui(monDen, n + 1);
+    mpz_init_set_si(monDen, n + 1);
     mpz_mul(monDen, monDen, monDen);
     mpz_mul(monDen, monDen, monDen);
 
