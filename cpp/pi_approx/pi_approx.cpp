@@ -49,11 +49,11 @@ void calcPreciseTo(unsigned long int outTo) {
 
     mpfr_set_default_prec(floatAccuracy);
 
-    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDN);
+    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDD);
 
     // Set the front constant that is always multiplied by the sum
-    mpfr_sqrt(frontConst, frontConst, MPFR_RNDN);
-    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDN);
+    mpfr_sqrt(frontConst, frontConst, MPFR_RNDD);
+    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDD);
 
     // Set the linear, exponential, and multinomial iterative values
     mpz_init_set_ui(linear, 13591409);
@@ -64,7 +64,7 @@ void calcPreciseTo(unsigned long int outTo) {
 
     // Set constant values for linear and exponential iterations
     mpz_init_set_ui(LINEARCONST, 545140134);
-    mpz_init_set_str(EXPONENTIALCONST, "-262537412640768000", 10);
+    mpz_init_set_str(EXPONENTIALCONST, "262537412640768000", 10);
 
     // Init pi-storage vars
     mpq_init(badPi);
@@ -76,14 +76,14 @@ void calcPreciseTo(unsigned long int outTo) {
 
     mpq_inv(badPi, badPi);
 
-    mpfr_init_set_q(goodPi, badPi, MPFR_RNDN);
-    mpfr_mul(goodPi, goodPi, frontConst, MPFR_RNDN);
+    mpfr_init_set_q(goodPi, badPi, MPFR_RNDD);
+    mpfr_mul(goodPi, goodPi, frontConst, MPFR_RNDD);
 
     mpfr_exp_t e;
 
-    outStr = mpfr_get_str(NULL, &e, 10, outTo, goodPi, MPFR_RNDN);
+    outStr = mpfr_get_str(NULL, &e, 10, outTo, goodPi, MPFR_RNDD);
 
-    printf("%s", outStr);
+    printf("%s\n", outStr);
 
     // A lot of clears
     mpz_clears(linear, exponential, kth, LINEARCONST, EXPONENTIALCONST,
