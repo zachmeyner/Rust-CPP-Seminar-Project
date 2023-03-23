@@ -1,5 +1,6 @@
 #include <gmp.h>
 #include <math.h>
+#include <mpf2mpfr.h>
 #include <mpfr.h>
 #include <stdio.h>
 #include <string>
@@ -15,7 +16,7 @@ mpz_t kth;
 mpz_t LINEARCONST;
 mpz_t EXPONENTIALCONST;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Input as pi_approx [DIGITS]\n");
         return 1;
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
 
     std::string precision = argv[1];
 
-    for (char const &ch : precision) {
+    for (char const& ch : precision) {
         if (!std::isdigit(ch)) {
             fprintf(stderr, "Input is not a number\n");
             return 1;
@@ -44,9 +45,9 @@ void calcPreciseTo(unsigned long int outTo) {
     mpq_t badPi;
     mpfr_t goodPi;
 
-    char *outStr = NULL;
+    char* outStr = NULL;
 
-    mpf_set_default_prec(floatAccuracy);
+    mpfr_set_default_prec(floatAccuracy);
 
     mpfr_init_set_ui(frontConst, 10005, MPFR_RNDN);
 
