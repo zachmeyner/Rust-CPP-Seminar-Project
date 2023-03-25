@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
 void calcPreciseTo(unsigned long int outTo) {
     unsigned long int iterations = ceilf32(float(outTo) / 14.18);
-    unsigned long int floatAccuracy = outTo * 20 + 100;
+    unsigned long int floatAccuracy = outTo * 20 + 32;
     mpfr_t frontConst;
     mpq_t badPi;
     mpfr_t goodPi;
