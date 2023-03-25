@@ -48,19 +48,11 @@ void calcPreciseTo(unsigned long int outTo) {
 
     mpf_set_default_prec(floatAccuracy);
 
-<<<<<<< HEAD
     mpfr_init_set_si(frontConst, 10005, MPFR_RNDD);
 
     // Set the front constant that is always multiplied by the sum
     mpfr_sqrt(frontConst, frontConst, MPFR_RNDD);
     mpfr_mul_si(frontConst, frontConst, 426880, MPFR_RNDD);
-=======
-    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDN);
-
-    // Set the front constant that is always multiplied by the sum
-    mpfr_sqrt(frontConst, frontConst, MPFR_RNDN);
-    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDN);
->>>>>>> parent of 0678453... making this positive makes it not crash
 
     // Set the linear, exponential, and multinomial iterative values
     mpz_init_set_si(linear, 13591409);
@@ -70,11 +62,7 @@ void calcPreciseTo(unsigned long int outTo) {
     mpz_init_set_si(kth, -6);
 
     // Set constant values for linear and exponential iterations
-<<<<<<< HEAD
     mpz_init_set_si(LINEARCONST, 545140134);
-=======
-    mpz_init_set_ui(LINEARCONST, 545140134);
->>>>>>> parent of 0678453... making this positive makes it not crash
     mpz_init_set_str(EXPONENTIALCONST, "-262537412640768000", 10);
 
     // Init pi-storage vars
