@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
 }
 
 void calcPreciseTo(unsigned long int outTo) {
-    unsigned long int iterations = ceilf32(float(outTo) / 14.8);
-    unsigned long int floatAccuracy = outTo * 20 + 32;
+    unsigned long int iterations = ceilf32(float(outTo) / 14.18);
+    unsigned long int floatAccuracy = outTo * 20 + 100;
     mpfr_t frontConst;
     mpq_t badPi;
     mpfr_t goodPi;
@@ -49,11 +49,11 @@ void calcPreciseTo(unsigned long int outTo) {
 
     mpf_set_default_prec(floatAccuracy);
 
-    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDD);
+    mpfr_init_set_ui(frontConst, 10005, MPFR_RNDN);
 
     // Set the front constant that is always multiplied by the sum
-    mpfr_sqrt(frontConst, frontConst, MPFR_RNDD);
-    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDD);
+    mpfr_sqrt(frontConst, frontConst, MPFR_RNDN);
+    mpfr_mul_ui(frontConst, frontConst, 426880, MPFR_RNDN);
 
     // Set the linear, exponential, and multinomial iterative values
     mpz_init_set_ui(linear, 13591409);
@@ -107,6 +107,7 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpq_mul(nextAdd, nextAdd, multinomial);
 
     mpq_add(sum, sum, nextAdd);
+    // gmp_printf("%Qu\n", sum);
     mpq_clear(nextAdd);
 
     // Iteratre the multinomial
@@ -121,14 +122,15 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
 
     // Denominator
     mpz_init_set_ui(monDen, n + 1);
-    mpz_mul(monDen, monDen, monDen);
-    mpz_mul(monDen, monDen, monDen);
+    mpz_mul_ui(monDen, monDen, n + 1);
+    mpz_mul_ui(monDen, monDen, n + 1);
 
     // The final bit
     mpq_init(monAdd);
     mpq_set_num(monAdd, monNum);
     mpq_set_den(monAdd, monDen);
-    mpq_mul(multinomial, monAdd, multinomial);
+    mpq_canonicalize(monAdd);
+    mpq_mul(multinomial, multinomial, monAdd);
 
     mpq_clear(monAdd);
     mpz_clears(monNum, monDen, (mpz_ptr)0);
