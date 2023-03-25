@@ -1,5 +1,6 @@
-#include <gmp.h>
+#include <gmpxx.h>
 #include <math.h>
+#include <mpf2mpfr.h>
 #include <mpfr.h>
 #include <stdio.h>
 #include <string>
@@ -63,7 +64,7 @@ void calcPreciseTo(unsigned long int outTo) {
 
     // Set constant values for linear and exponential iterations
     mpz_init_set_ui(LINEARCONST, 545140134);
-    mpz_init_set_str(EXPONENTIALCONST, "262537412640768000", 10);
+    mpz_init_set_str(EXPONENTIALCONST, "-262537412640768000", 10);
 
     // Init pi-storage vars
     mpq_init(badPi);
@@ -82,7 +83,7 @@ void calcPreciseTo(unsigned long int outTo) {
 
     outStr = mpfr_get_str(NULL, &e, 10, outTo, goodPi, MPFR_RNDN);
 
-    printf("%s", outStr);
+    printf("%s\n", outStr);
 
     // A lot of clears
     mpz_clears(linear, exponential, kth, LINEARCONST, EXPONENTIALCONST,
@@ -102,6 +103,7 @@ void calcNextSum(mpq_t sum, unsigned long int n) {
     mpq_init(nextAdd);
     mpq_set_num(nextAdd, linear);
     mpq_set_den(nextAdd, exponential);
+    mpq_canonicalize(nextAdd);
     mpq_mul(nextAdd, nextAdd, multinomial);
 
     mpq_add(sum, sum, nextAdd);
