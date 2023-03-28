@@ -1,19 +1,36 @@
 #include <iostream>
 #include <limits.h>
 #include <math.h>
+#include <stdio.h>
+#include <string>
 #include <vector>
 
 typedef unsigned long long ull;
 
-void sieve(std::vector<ull> &prime, ull limit);
+void sieve(std::vector<ull>& prime, ull limit);
 void ExtendedSieve(ull limit);
 
-int main() {
-    ExtendedSieve(100000000);
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Input as sieve [NUMBER]\n");
+        return 1;
+    }
+
+    std::string number = argv[1];
+
+    for (char& ch : number) {
+        if (!std::isdigit(ch)) {
+            fprintf(stderr, "Input is not a number\n");
+            return 1;
+        }
+    }
+
+    ull out = std::stoull(number);
+    ExtendedSieve(out);
     return 0;
 }
 
-void sieve(std::vector<ull> &prime, ull limit) {
+void sieve(std::vector<ull>& prime, ull limit) {
     std::vector<bool> mark(limit + 1, true);
 
     for (ull i = 4; i <= limit; i += 2) {
