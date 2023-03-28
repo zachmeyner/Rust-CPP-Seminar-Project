@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
 
     ull out = std::stoull(number);
     ExtendedSieve(out);
+    printf("\n");
     return 0;
 }
 
