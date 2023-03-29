@@ -15,7 +15,7 @@ echo "input,Rust,C++" > pitimes.csv
 SUMR=0
 SUMC=0
 
-sum seive 20 times and average the runtimes
+# sum seive 10 times and average the runtimes
 start at 1,000,000 and inc by 500,000 until reach 5,000,000
  INC=100000000
  
@@ -48,6 +48,8 @@ start at 1,000,000 and inc by 500,000 until reach 5,000,000
 
 INC=50000
 
+
+# Pi approx 10 times and average it
 while [ $INC -le 250000 ]
 do
     #Rust program for seive
@@ -69,8 +71,8 @@ do
         SUMC=$(echo "$SUMC + $DUR" | bc)
     done
 
-    AVGR=$(echo "scale=10; $SUMR / 5.0" | bc)
-    AVGC=$(echo "scale=10; $SUMC / 5.0" | bc)
+    AVGR=$(echo "scale=10; $SUMR / 10.0" | bc)
+    AVGC=$(echo "scale=10; $SUMC / 10.0" | bc)
     echo "$INC,$AVGR,$AVGC" >> pitimes.csv
     (( INC+=50000 ))
 done
