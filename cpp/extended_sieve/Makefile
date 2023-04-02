@@ -1,5 +1,5 @@
 OBJS = sieve
-CXXFLAGS = -Ofast -Wall -Wextra -Wpedantic -Werror --std=c++2a
+CXXFLAGS = -g -Ofast -Wall -Wextra -Wpedantic -Werror --std=c++2a
 
 all: ${OBJS}
 
