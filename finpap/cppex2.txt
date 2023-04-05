@@ -1,0 +1,19 @@
+// Iteratre the multinomial
+// Numerator
+mpz_add_ui(kth, kth, 12);
+// k^3
+mpz_init_set(monNum, kth);
+mpz_mul(monNum, monNum, kth);
+mpz_mul(monNum, monNum, kth);
+// -16k
+mpz_submul_ui(monNum, kth, 16);
+// Denominator
+mpz_init_set_ui(monDen, n + 1);
+mpz_mul_ui(monDen, monDen, n + 1);
+mpz_mul_ui(monDen, monDen, n + 1);
+// The final bit
+mpq_init(monAdd);
+mpq_set_num(monAdd, monNum);
+mpq_set_den(monAdd, monDen);
+mpq_canonicalize(monAdd);
+mpq_mul(multinomial, multinomial, monAdd);

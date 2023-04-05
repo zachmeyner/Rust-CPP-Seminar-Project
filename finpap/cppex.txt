@@ -1,0 +1,3 @@
+for (ull i = 4; i <= limit; i += 2) {
+    mark[i] = false;
+}

@@ -1,0 +1,4 @@
+mark.iter_mut()
+    .skip(4)
+    .step_by(2)
+    .for_each(|p| *p = false);
