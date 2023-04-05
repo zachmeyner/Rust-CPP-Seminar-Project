@@ -1,0 +1,315 @@
+    Finished release [optimized] target(s) in 0.01s
+rm -f sieve *.o
+g++ -Ofast -Wall -Wextra -Wpedantic -Werror --std=c++2a    sieve.cpp   -o sieve
+    Finished release [optimized] target(s) in 0.04s
+rm -f pi_approx *.o
+g++ -Ofast -std=c++2a -Wall    pi_approx.cpp  -lmpfr -lgmp -o pi_approx
+./timescipt.sh: line 19: start: command not found
+Rust sieve with 100000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 100000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 100000000`
+C++ sieve with 100000000
+Rust sieve with 150000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 150000000`
+C++ sieve with 150000000
+Rust sieve with 200000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 200000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 200000000`
+C++ sieve with 200000000
+Rust sieve with 250000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 250000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 250000000`
+C++ sieve with 250000000
+Rust sieve with 300000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 300000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 300000000`
+C++ sieve with 300000000
+Rust sieve with 350000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 350000000`
+C++ sieve with 350000000
+Rust sieve with 400000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 400000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 400000000`
+C++ sieve with 400000000
+Rust sieve with 450000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 450000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 450000000`
+C++ sieve with 450000000
+Rust sieve with 500000000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 500000000`
+    Finished release [optimized] target(s) in 0.00s
+     Running `target/release/extended_seive 500000000`
+C++ sieve with 500000000
+Rust Pi with 50000
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 50000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 50000`
+Rust Pi with 50000
+Rust Pi with 100000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 100000`
+Rust Pi with 100000
+Rust Pi with 150000
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 150000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 150000`
+Rust Pi with 150000
+Rust Pi with 200000
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 200000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 200000`
+Rust Pi with 200000
+Rust Pi with 250000
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.01s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+    Finished release [optimized] target(s) in 0.04s
+     Running `target/release/pi_approx 250000`
+Rust Pi with 250000
