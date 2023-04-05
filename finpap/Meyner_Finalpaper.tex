@@ -141,7 +141,7 @@ Input size will determine how many digits of pi the programs will calculate, and
 After each programs time is averaged for the given input, the input will increment by 50,000 up to 250,000.
 Chudnovsky algorithm will quickly exaust the precision possible by a 64-bit floating point number, as well as how large 64-bit integers can be, so big number packages will need to be used.
 In both langauges the libraries gmp\cite{gmp} and mpfr\cite{mpfr} will be used for big numbers and big floats repsectively.
-Since gmp and mpfr are C libraries they will work natively in C++, but for Rust we will need to use a library called "rug" from crates.io that acts as a wrapper to the C function calls\cite{rug}.
+Since gmp and mpfr are C libraries they will work natively in C++, but for Rust we will need to use a library called ``rug'' from crates.io that acts as a wrapper to the C function calls\cite{rug}.
 To get the rug library into the rust project we simply add \verb|rug = "1.19.1"| into the Cargo.toml file below the \verb|[dependencies]| line.
 The use of community made wrapper for gmp leads to many changes in the code between the two, for example in C++ we have
 \lstinputlisting[language=C++]{cppex2.txt}
