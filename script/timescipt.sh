@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #init starting files
-# echo "input,Rust,C++" > seivetimes.csv
-# echo "input,Rust,C++" > pitimes.csv
+echo "input,Rust,C++" > seivetimes.csv
+echo "input,Rust,C++" > pitimes.csv
 
 
 #build seive
@@ -44,7 +44,7 @@ do
 
     AVGR=$(echo "scale=10; $SUMR / 10.0" | bc)
     AVGC=$(echo "scale=10; $SUMC / 10.0" | bc)
-    echo "$INC,$AVGR,$AVGC" >> test.csv
+    echo "$INC,$AVGR,$AVGC" >> seivetimes.csv
     (( INC+=50000000 ))
 done
 
@@ -75,6 +75,6 @@ do
 
     AVGR=$(echo "scale=10; $SUMR / 10.0" | bc)
     AVGC=$(echo "scale=10; $SUMC / 10.0" | bc)
-    echo "$INC,$AVGR,$AVGC" >> test2.csv
+    echo "$INC,$AVGR,$AVGC" >> pitimes.csv
     (( INC+=50000 ))
 done
