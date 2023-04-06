@@ -27,7 +27,7 @@ do
     echo "Rust sieve with $INC"
     for _IT in {1..10}
     do
-        (cd ../rust/extended_seive && /usr/bin/time -f %e -o ../../script/out.out cargo run --release $INC > /dev/null)
+        (cd ../rust/extended_seive && /usr/bin/time -f %S -o ../../script/out.out cargo run --release $INC > /dev/null)
         RTIM=$(< out.out)
         SUMR=$(echo "$SUMR + $RTIM" | bc)
     done
@@ -37,7 +37,7 @@ do
     echo "C++ sieve with $INC"
     for _IT in {1..10}
     do
-        (cd ../cpp/extended_sieve && /usr/bin/time -f %e -o ../../script/out.out ./sieve $INC > /dev/null)
+        (cd ../cpp/extended_sieve && /usr/bin/time -f %S -o ../../script/out.out ./sieve $INC > /dev/null)
         CTIM=$(< out.out)
         SUMC=$(echo "$SUMC + $CTIM" | bc)
     done
@@ -58,7 +58,7 @@ do
     echo "Rust Pi with $INC"
     for _IT in {1..10}
     do
-        (cd ../rust/pi_approx && /usr/bin/time -f %e -o ../../script/out.out cargo run --release $INC > /dev/null)
+        (cd ../rust/pi_approx && /usr/bin/time -f %S -o ../../script/out.out cargo run --release $INC > /dev/null)
         RTIM=$(< out.out)
         SUMR=$(echo "$SUMR + $RTIM" | bc)
     done
@@ -68,7 +68,7 @@ do
     echo "C++ Pi with $INC"
     for _IT in {1..10}
     do
-        (cd ../cpp/pi_approx && /usr/bin/time -f %e -o ../../script/out.out ./pi_approx $INC > /dev/null)
+        (cd ../cpp/pi_approx && /usr/bin/time -f %S -o ../../script/out.out ./pi_approx $INC > /dev/null)
         CTIM=$(< out.out)
         SUMC=$(echo "$SUMC + $CTIM" | bc)
     done
