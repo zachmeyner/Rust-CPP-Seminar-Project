@@ -70,7 +70,7 @@ This numerical approximation provides a great way to compare the completion and 
 \section{Methodology}
 All tests were run 10 times on a local machine with [INSERT MACHINE SPECS HERE (CPU, MEM, OS, COMPILER VERSION)]. All C++ builds will be using the \verb|-Ofast| 
 compiler flag, and all rust builds will be done with the command \verb|cargo build --release| which by default 
-uses the highest rustc speed optimization level\cite{cargobook}. For each program timing will be done via the linux \verb|date +%s.%N| command to get the time at execution and once execution is done.
+uses the highest rustc speed optimization level\cite{cargobook}. For each program timing will be done via the linux \verb|/usr/bin/time| command to get the time at execution and once execution is done.
 Each program will be run 10 times and have their execution times averaged together.
 \subsection{Extended Sieve of Eratosthenes}
 Input will determine what number for the sieve to go up to, and will start at 100,000,000.
@@ -154,20 +154,20 @@ becuase of the rug library wrapper for gmp and mpfr.
 \subsection{Extended Sieve of Eratosthenes}
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{|c|c|c|}
-    \hline
+    \begin{tabular}{|c|cc|}
+        \hline
         \rowcolor{lightgray}
-        Input & Rust & C++ \\ \hline
-        100000000 & 1.4844114843 & 1.6681669930 \\ \hline
-        150000000 & 3.0716181078 & 4.4771132414 \\ \hline
-        200000000 & 5.4847136071 & 7.4318468294 \\ \hline
-        250000000 & 8.0594626037 & 11.3465504777 \\ \hline
-        300000000 & 11.0686326113 & 15.0919792536 \\ \hline
-        350000000 & 14.4207232688 & 20.0329311072 \\ \hline
-        400000000 & 18.2655227024 & 25.8371819134 \\ \hline
-        450000000 & 22.2348852219 & 32.2092539541 \\ \hline
-        500000000 & 26.7967424269 & 38.9809235975 \\ \hline
-    \end{tabular}
+            Input & Rust & C++ \\ \hline
+            100000000 & 1.515 & 2.192 \\ 
+            150000000 & 3.515 & 5.146 \\ 
+            200000000 & 5.952 & 8.568 \\ 
+            250000000 & 8.900 & 12.804 \\ 
+            300000000 & 12.309 & 17.66 \\ 
+            350000000 & 15.942 & 23.146 \\ 
+            400000000 & 19.957 & 29.142 \\ 
+            450000000 & 24.324 & 35.784 \\ 
+            500000000 & 29.136 & 43.072\\ \hline
+        \end{tabular}
     \caption{\label{sieve-table}Table comparison between Rust and C++ in an Extended Sieve of Eratosthenes}
 \end{table}
 As seen in Table~\ref{sieve-table} and Figure~\ref{sieve-graph} as input grows larger Rust becomes increasingly faster than C++.
@@ -175,16 +175,16 @@ As seen in Table~\ref{sieve-table} and Figure~\ref{sieve-graph} as input grows l
 As seen in Figure~\ref{pi-graph} the speed of Chudnovsky is really close between Rust and C++, and Table~\ref{pi-table} shows that Rust is slighly faster than C++.
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{|c|c|c|}
-    \hline
+    \begin{tabular}{|c|cc|}
+        \hline
         \rowcolor{lightgray}
-        Digits & Rust & C++ \\ \hline
-        50000 & 38.6288526581 & 50.7072779206 \\ \hline
-        100000 & 99.9432942532 & 112.3150487485 \\ \hline
-        150000 & 261.9046002658 & 275.2219011254 \\ \hline
-        200000 & 583.6029239356 & 599.5353800827 \\ \hline
-        250000 & 1131.0447371976 & 1149.8171054337 \\ \hline
-    \end{tabular}
+            Digits & Rust & C++ \\ \hline
+            50000 & 41.525 & 55.47 \\ 
+            100000 & 103.368 & 117.545 \\ 
+            150000 & 265.303 & 280.494 \\ 
+            200000 & 587.227 & 604.184 \\ 
+            250000 & 1133.657 & 1153.602 \\ \hline
+        \end{tabular}
     \caption{\label{pi-table}Table comparison between Rust and C++ in Chudnovsky Algorithm}
 \end{table}
 \begin{figure}[h]
