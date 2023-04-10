@@ -21,7 +21,7 @@
 \lstset{style=basicstyle}
 
 \begin{document}
-\title{Rust vs C++: Perforamnce in an extended sieve of Eratosthenes, and basic implementation of Chudnovsky algorithm}
+\title{Rust vs C++: Performance in an extended sieve of Eratosthenes, and basic implementation of Chudnovsky algorithm}
 \author{\IEEEauthorblockN{Zachary Meyner}
 }
 \date{}
@@ -49,7 +49,7 @@ Cargo's package manager and crates.io makes community support for any features n
 Rust's technology has allowed it to rank as the most popular language on Stack Overflow developer survey for seven years~\cite{stackoverflow2022}. 
 The language has also amassed a large dedicated fanbase, including a discord server with 40,000+ users~\cite{discord}.
 \par
-Rust's potential in speed and lines of code (LOC) written helped raise the popularity of the language and brought about speed tests of the language. 
+Rust's potential in ease of writing in helped raise the popularity of the language and brought about speed tests of the language. 
 It has been run against C in the embedded software and determined to be a viable alternative~\cite{borgsmuller2021rust}. 
 The safety benefits in systems programming has been explored~\cite{BalasubramanianProceedings}. 
 Rust has also been compared to C, Fortran, and Java for speed and effort in parallel architectures, 
@@ -65,7 +65,7 @@ The sieve of Eratosthenes gives an excellent test of the languages standard libr
 \par
 Approximating $\pi$ has been one of the longest problems in Mathematics, dating back to Ancient Egypt\cite{burton}. Methods for approximating $\pi$ have become quite computationally efficient since then and eventually 
 lead to a Ramunujan-type approximation by the Chudnovsky brotherswhich was used to break the the world record for computing $\pi$\cite{lynn}.
-This numerical approximation provides a great way to compare the completion and LOC efficiency of Rust and C++, and external supported packages in each langauges.
+This numerical approximation provides a great way to compare the efficiency of Rust and C++, and external supported packages in each langauges.
 
 \section{Methodology}
 All tests were run 10 times on a local machine with [INSERT MACHINE SPECS HERE (CPU, MEM, OS, COMPILER VERSION)]. All C++ builds will be using the \verb|-Ofast| 
@@ -76,7 +76,6 @@ Each program will be run 10 times and have their execution times averaged togeth
 Input will determine what number for the sieve to go up to, and will start at 100,000,000.
 After each programs has its time averaged for the given input, the input will increment by 500,000 and repeat the same process up to 500,000,000.
 % The pseudocode outline used to code the sieve in both C++ and Rust is given:
-
 % \begin{lstlisting}
 % # Original sieve of Eratosthenes
 % function sieve(vec &primes, u64 limit):
@@ -128,7 +127,6 @@ After each programs has its time averaged for the given input, the input will in
 %         low+=size
 %         high+=size
 % \end{lstlisting}
-
 In both langauges the standard library vector and its associated functions were used.
 For C++ that gives us \verb|std::vector<T>| and in Rust it is \verb|std::vec::Vec<T>| 
 Rust's vector performs bound checking on calls, so 
@@ -139,7 +137,7 @@ in C++ would now be typed as.
 \lstinputlisting[language=Rust]{rustex.txt}
 This was done wherever possible to maximize the performance in Rust.
 \subsection{Chudnovsky Algorithm}
-Input size will determine how many digits of pi the programs will calculate, and will be starting at 50,000. 
+Input size will determine how many digits of $\pi$ the programs will calculate, and will be starting at 50,000. 
 After each programs time is averaged for the given input, the input will increment by 50,000 up to 250,000.
 Chudnovsky algorithm will quickly exaust the precision possible by a 64-bit floating point number, as well as how large 64-bit integers can be, so big number packages will need to be used.
 In both langauges the libraries gmp\cite{gmp} and mpfr\cite{mpfr} will be used for big numbers and big floats repsectively.
@@ -197,7 +195,15 @@ As seen in Figure~\ref{pi-graph} the speed of Chudnovsky is really close between
     \includegraphics{sieveplot}
     \caption{\label{sieve-graph}Graph comparison between Rust and C++ in an Extended Sieve of Eratosthenes}
 \end{figure}
-
+\section{Discussion}
+The results clearly show that Rust is able to calculate primes via the extended sieve significantly faster than C++, and is approximately equal to C++ in calculating digits of $\pi$ in the Chudnovsky algorithm.
+We examined a calltree for the extended sieve program and were unable to determine what lead to the significant difference in execution time between the Rust and C++.
+\section{Future Works}
+Future works could look into what leads to the performance difference in extended sieve algorithm between the two langauges. Packages similar to GMP and MPFR could also be developed natively in Rust and tested against the speed of GMP and MPFR.\@
+Addionally future works could look into the multithreaded performance of these algorithms in both languages.
+\section{Conclusion}
+In this study we showed that Rust is a potential alternative in terms of speed for numerical calculations-specifically the extended sieve and Chudnovsky Algorithm.
+Rust performed significantly faster in an extended sieve of Eratosthenes and slighly faster than Chudnovsky algorithm in C++.
 \nocite{*}
 \bibliographystyle{IEEEtran}
 \bibliography{propbib}
