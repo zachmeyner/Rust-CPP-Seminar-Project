@@ -31,8 +31,8 @@
 \begin{abstract}
 Rust is a young high performance programming language designed for safety and speed.
 It's system of borrow checking at compile time ensures all code written in it is safe while keeping runtime high.
-When considering the possibly of Rust for a project that requires high speed it is important to know how Rust compares to the traditionally fast programming langauges, specifically C and C++.
-Many speed comparisons between the languages exist, but in this study we compare the speed of Rust and C++ in a Number Theory computation.
+When considering the possibly of Rust for a project that requires high performance it is important to know how Rust compares to the traditionally fast programming langauges, specifically C and C++.
+Many speed comparisons between the languages exist, but in this study we compare the speed of Rust and C++ in several Number Theory computations.
 The results show that Rust is as fast or faster than C++ in our computations.
 \end{abstract}
 \section{Introduction}
@@ -44,14 +44,14 @@ through its system of ownership---a set of rules checked at compile time to ensu
     \item Each value can only have one owner, and
     \item When the owner goes out of scope the variable is deleted~\cite{rust2023}.
 \end{itemize}
-Rust also employs a system of borrowing for referencing. When a variable needs to be used in a different part of code, say a function, 
+Rust employs a system of borrowing for referencing. When a variable needs to be used in a different part of code, say a function, 
 \begin{itemize}
     \item The variable is borrowed by that function via a reference and does not own that variable,
     \item The function cannot return that reference, and
     \item The reference is deleted at the end of the function call because of ownership~\cite{rust2023}.
 \end{itemize}
-Rust also includes a very robust package manager and database, and build tool called “Cargo”~\cite{cargobook}. 
-Cargo's package manager and crates.io makes community support for any features not included in the standard library to be maintained.
+Rust includes a very robust package manager, database, and build tool called “Cargo”~\cite{cargobook}. 
+Cargo's package manager and repository--crates.io--makes community support for any features not included in the standard library to be maintained.
 Rust's technology has allowed it to rank as the most popular language on Stack Overflow developer survey for seven years~\cite{stackoverflow2022}. 
 The language has also amassed a large dedicated fanbase, including a discord server with 40,000+ users~\cite{discord}.
 \par
@@ -61,8 +61,8 @@ The safety benefits in systems programming has been explored~\cite{Balasubramani
 Rust has also been compared to C, Fortran, and Java for speed and effort in parallel architectures, 
 and found to be as fast as the fastest languages with the lowest amount of effort when programming~\cite{costanzo2021performance}\cite{heyman2020comparison}.
 \par
-The Sieve of Eratosthenes finds all prime numbers $p<n$ by starting at the first prime (normally 3) $p_0$ and multiplying by $k \leq \sqrt{n}$ where $k \in \mathbb{N}$ and marking resultant numbers as not prime.
-When all $k$ have been multiplied by $p_0$ the steps are repeated on the next unmarked number $p_1$.
+The Sieve of Eratosthenes finds all prime numbers $p<n$ by starting at the first prime (normally 2) $p_0$ and multiplying by $k \leq \sqrt{n}$ where $k \in \mathbb{N}$ and marking resultant numbers as not prime.
+When $k*p_0$ is done $\forall k$ the steps are repeated on the next unmarked number $p_1$.
 The extended Sieve of Eratosthenes divides the range of the sieve into segments of size $\sqrt{n}+1$ and mark prime numbers in the respective ranges one segment at a time.
 Dave Plummer has run a Sieve of Eratosthenes “race” on many programming languages\cite{plummer}. 
 Plummer's results show a basic Sieve as opposed to an extended sieve, and rather than testing speed, Plummer tested how many times 
@@ -70,7 +70,7 @@ the sieve can go up to a number in a certain amount of time.
 The sieve of Eratosthenes gives an excellent test of the languages standard library vector implementations, and ease of writing array code in each langauge.
 \par
 Approximating $\pi$ has been one of the longest problems in Mathematics, dating back to Ancient Egypt\cite{burton}. Methods for approximating $\pi$ have become quite computationally efficient since then and eventually 
-lead to a Ramunujan-type approximation by the Chudnovsky brotherswhich was used to break the the world record for computing $\pi$\cite{lynn}.
+lead to a Ramunujan-type approximation by the Chudnovsky brothers which was used to break the the world record for computing $\pi$\cite{lynn}.
 This numerical approximation provides a great way to compare the efficiency of Rust and C++, and external supported packages in each langauges.
 
 \section{Methodology}
@@ -79,7 +79,7 @@ compiler flag, and all rust builds will be done with the command \verb|cargo bui
 uses the highest rustc speed optimization level\cite{cargobook}. For each program timing will be done via the linux \verb|/usr/bin/time| command to get the time at execution and once execution is done.
 Each program will be run 10 times and have their execution times averaged together.
 \subsection{Extended Sieve of Eratosthenes}
-Input will determine what number for the sieve to go up to, and will start at 100,000,000.
+Input will determine the numeric limit for the sieve, and will start at 100,000,000.
 After each programs has its time averaged for the given input, the input will increment by 500,000 and repeat the same process up to 500,000,000.
 % The pseudocode outline used to code the sieve in both C++ and Rust is given:
 % \begin{lstlisting}
@@ -137,9 +137,9 @@ In both langauges the standard library vector and its associated functions were 
 For C++ that gives us \verb|std::vector<T>| and in Rust it is \verb|std::vec::Vec<T>| 
 Rust's vector performs bound checking on calls, so 
 it is better to use the langauges built in iterators in many places in 
-the code. So code that would traditionally look like:
+the code. So C++ code such as:
 \lstinputlisting[language=C++]{cppex.txt}
-in C++ would now be typed as.
+would be typed in Rust as:
 \lstinputlisting[language=Rust]{rustex.txt}
 This was done wherever possible to maximize the performance in Rust.
 \subsection{Chudnovsky Algorithm}
