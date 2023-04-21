@@ -74,7 +74,7 @@ lead to a Ramunujan-type approximation by the Chudnovsky brothers which was used
 This numerical approximation provides a great way to compare the efficiency of Rust and C++, and external supported packages in each langauges.
 
 \section{Methodology}
-All tests were run 10 times on a local machine with [INSERT MACHINE SPECS HERE (CPU, MEM, OS, COMPILER VERSION)]. All C++ builds will be using the \verb|-Ofast| 
+All tests were run 10 times on a local machine with a Xeon E5-2640 @2.40 GHz, 64 GB of RAM, running CentOS 9. The C++ complier is GCC 11.3.1 and the Rust complier is rustc 1.70.0-nightly (2023-03-28). All C++ builds will be using the \verb|-Ofast| 
 compiler flag, and all rust builds will be done with the command \verb|cargo build --release| which by default 
 uses the highest rustc speed optimization level\cite{cargobook}. For each program timing will be done via the linux \verb|/usr/bin/time| command to get the time at execution and once execution is done.
 Each program will be run 10 times and have their execution times averaged together.
